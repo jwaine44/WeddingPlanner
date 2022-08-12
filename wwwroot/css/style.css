@@ -1,0 +1,48 @@
+.container {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 50px;
+}
+
+.Logout {
+    margin-top: 30px;
+}
+
+table {
+    width: 500px;
+    margin: auto;
+    margin-top: 50px;
+    text-align: center;
+}
+
+thead {
+    font-weight: bold;
+}
+
+.new {
+    margin-left: 500px;
+    margin-top: 50px;
+}
+
+.action {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.wform {
+    margin-left: 500px;
+    margin-top: 50px;
+}
+
+.btn {
+    margin-top: 20px;
+}
+
+.info {
+    margin-left: 100px;
+}
+
+.validation {
+    color: red;
+    font-weight: bold;
+}

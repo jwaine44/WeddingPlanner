@@ -1,0 +1,60 @@
+@model List<Wedding>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wedding Planner</title>
+    <link rel="stylesheet" href="~/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to the Wedding Planner</h1>
+        <form asp-controller = "User" asp-action = "Logout" method = "POST"><button class = "Logout">Logout</button></form>
+    </div>
+    <table>
+        <thead>
+            <td>Wedding</td>
+            <td>Date</td>
+            <td>Guests</td>
+            <td>Action</td>
+        </thead>
+        <tbody>
+        @foreach(Wedding wed in Model)
+        {
+        @* Seeing if a wedding has a connection tied to the currently logged in user *@
+            bool alreadyRSVPD = wed.Connections.Any(conn => conn.UserId == Context.Session.GetInt32("uid"));
+
+            <tr>
+                <td><a asp-controller = "Wedding" asp-action = "Wedding" asp-route-weddingId = "@wed.WeddingId">@wed.WedderOne & @wed.WedderTwo</a></td>
+                <td>@wed.Date.ToShortDateString()</td>
+                <td>@wed.Connections.Count</td>
+                <td class = "action">
+                    <form asp-controller = "Wedding" asp-action = "Rsvp" asp-route-weddingId = "@wed.WeddingId" method = "POST">
+                        <button>
+                            @if(alreadyRSVPD)
+                            {
+                                <span>Un-RSVP</span>
+                            }
+                            else
+                            {
+                                <span>RSVP</span>
+                            }
+                        </button>
+                    </form>
+                    
+                    @if(wed.UserId == Context.Session.GetInt32("uid"))
+                    {
+                        <form asp-controller = "Wedding" asp-action = "Delete" asp-route-deletedWeddingId = "@wed.WeddingId" method = "POST">
+                            <button>Delete</button>
+                        </form>
+                    }
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+    <a asp-controller = "Wedding" asp-action = "ShowWeddingPlan"><button class = "new">New Wedding</button></a>
+</body>
+</html>
