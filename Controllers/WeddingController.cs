@@ -42,6 +42,7 @@ public class WeddingController : Controller
         List<Wedding> AllWeddings = _context.Weddings
             .Include(w => w.Creator)
             .Include(w => w.Connections)
+            .OrderBy(w => w.Date)
             .ToList();
 
         return View("Dashboard", AllWeddings);
