@@ -31,25 +31,27 @@
                 <td>@wed.Date.ToShortDateString()</td>
                 <td>@wed.Connections.Count</td>
                 <td class = "action">
-                    <form asp-controller = "Wedding" asp-action = "Rsvp" asp-route-weddingId = "@wed.WeddingId" method = "POST">
-                        <button>
-                            @if(alreadyRSVPD)
-                            {
-                                <span>Un-RSVP</span>
-                            }
-                            else
-                            {
-                                <span>RSVP</span>
-                            }
-                        </button>
-                    </form>
-                    
                     @if(wed.UserId == Context.Session.GetInt32("uid"))
                     {
                         <form asp-controller = "Wedding" asp-action = "Delete" asp-route-deletedWeddingId = "@wed.WeddingId" method = "POST">
                             <button>Delete</button>
                         </form>
                     }
+                    else 
+                    {
+                        <form asp-controller = "Wedding" asp-action = "Rsvp" asp-route-weddingId = "@wed.WeddingId" method = "POST">
+                            <button>
+                                @if(alreadyRSVPD)
+                                {
+                                    <span>Un-RSVP</span>
+                                }
+                                else
+                                {
+                                    <span>RSVP</span>
+                                }
+                            </button>
+                        </form>
+                    }                    
                 </td>
             </tr>
         }
